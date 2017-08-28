@@ -60,7 +60,9 @@ SAML.prototype.generateUniqueID = function() {
 };
 
 SAML.prototype.generateInstant = function() {
-	return new Date().toISOString();
+    var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    return (new Date(Date.now() - tzoffset)).toISOString().slice(0,-1)+ "Z";	
+	//return new Date().toISOString();
 };
 
 SAML.prototype.signRequest = function(xml) {
